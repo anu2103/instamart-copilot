@@ -35,21 +35,12 @@ This project builds an end-to-end workflow around those needs. It starts with sy
 \### What the project delivers
 
 
-
 | Workstream | Outcome |
-
 |---|---|
-
 | Part A — Data foundation | Raw-data audit, cleaning, SQLite database, SQL analysis, and validation checkpoints |
-
 | Part B — Customer intelligence | RFM features, K-means customer segments, lapse-risk modelling, and a retention-priority list |
-
 | Part C — Support copilot | PII redaction, ticket guardrails, zero-shot/few-shot triage comparison, retry handling, token-budget handling, and policy retrieval evaluation |
-
 | Part D — Controlled refund agent | Policy-aware tool use, refund calculations, escalation rules, execution limits, checkpointing, and resume testing |
-
-
-
 \### Design principles
 
 
@@ -251,29 +242,16 @@ Create a dependable analytical foundation from synthetic quick-commerce data. Th
 \### Data quality and validation
 
 
-
 | Checkpoint | Result |
-
 |---|---:|
-
 | Raw customers | 1,200 |
-
 | Products | 40 |
-
 | Raw orders | 13,084 |
-
 | Duplicate order rows identified | 119 |
-
 | Cleaned order rows | 12,309 |
-
 | Completed orders | 11,110 |
-
 | Cancelled orders | 1,199 |
-
 | Completed-order revenue | INR 2,998,668.80 |
-
-
-
 The customer dataset contains 1,200 records. The cleaning workflow handles missing or invalid age values, normalises gender values, and standardises city data. The cleaned customer age range is 18–60; gender counts are 610 female, 560 male, and 30 unknown.
 
 
@@ -325,25 +303,14 @@ Move from order-level reporting to customer-level decisions. The workflow create
 The RFM snapshot date is \*\*1 October 2025\*\*. The analysis includes 1,175 customers with completed orders.
 
 
-
 | Measure | Result |
-
 |---|---:|
-
 | Customers with completed orders | 1,175 |
-
 | Median recency | 19 days |
-
 | Mean frequency | 9.4553 orders |
-
 | Maximum frequency | 33 orders |
-
 | Mean monetary value | INR 2,552.06 |
-
 | Maximum monetary value | INR 14,766.55 |
-
-
-
 Recency measures how recently a customer ordered, frequency measures the number of completed orders, and monetary value measures completed-order spend. Together, these features provide a compact behavioural view of customer activity.
 
 
@@ -355,21 +322,12 @@ Recency measures how recently a customer ordered, frequency measures the number 
 K-means clustering was evaluated using cluster-quality metrics, with \*\*K = 4\*\* selected for the reported segmentation. The four-cluster silhouette score was \*\*0.526\*\*.
 
 
-
 | Segment | Customers | Interpretation |
-
 |---|---:|---|
-
 | Growth Opportunity | 436 | Customers to nurture through relevant engagement and repeat-purchase opportunities |
-
 | Premium | 138 | High-value customers whose experience should be protected |
-
 | Frequent Loyal | 419 | Regular customers who may respond to loyalty and convenience improvements |
-
 | At-Risk | 182 | Customers who warrant closer retention attention |
-
-
-
 These labels are business-facing interpretations of the clusters, not guarantees about an individual customer's future behaviour.
 
 
@@ -381,45 +339,24 @@ These labels are business-facing interpretations of the clusters, not guarantees
 The lapse dataset contains 1,156 customers. The label identifies whether a customer had no completed order from \*\*1 September through 30 September 2025\*\*, using the 1 September 2025 cutoff.
 
 
-
 | Measure | Result |
-
 |---|---:|
-
 | Customers in lapse dataset | 1,156 |
-
 | Lapsed customers | 443 |
-
 | Non-lapsed customers | 713 |
-
 | Lapse share | 38.32% |
-
-
-
 The reported Random Forest configuration uses `max\_depth=8` and `min\_samples\_leaf=10`.
 
 
-
 | Evaluation measure | Reported result |
-
 |---|---:|
-
 | Precision | 0.6591 |
-
 | Recall | 0.6517 |
-
 | F1 score | 0.6554 |
-
 | Confusion matrix — true negatives | 113 |
-
 | Confusion matrix — false positives | 30 |
-
 | Confusion matrix — false negatives | 31 |
-
 | Confusion matrix — true positives | 58 |
-
-
-
 The confusion matrix is shown in the order `\[\[TN, FP], \[FN, TP]]`. The F1 score balances precision and recall; neither a good F1 score nor a predicted risk guarantees that a particular customer will lapse.
 
 
@@ -435,23 +372,13 @@ An oversampled Random Forest experiment increased recall to approximately \*\*0.
 The reported Random Forest feature-importance ranking is:
 
 
-
 | Feature | Importance |
-
 |---|---:|
-
 | Frequency | 0.2797 |
-
 | Monetary value | 0.2714 |
-
 | Recency | 0.1152 |
-
 | Average delivery minutes | 0.0612 |
-
 | Cancellation rate | 0.0523 |
-
-
-
 Frequency and monetary value have the highest importance among the listed features. These values describe the fitted model's relative feature importance; they do not establish that a feature causes customer behaviour.
 
 
@@ -487,21 +414,12 @@ Build a local support workflow that redacts sensitive patterns, applies input gu
 The supplied ticket dataset contains 164 tickets. The final triage run recorded the following redactions:
 
 
-
 | Pattern | Substitutions |
-
 |---|---:|
-
 | Email addresses | 55 |
-
 | Phone numbers | 91 |
-
 | Order IDs | 132 |
-
 | \*\*Total substitutions\*\* | \*\*278\*\* |
-
-
-
 The redaction verification passed with no remaining matches for the three configured patterns. Four empty tickets were skipped and four long tickets were flagged rather than sent for normal classification.
 
 
@@ -509,25 +427,14 @@ The redaction verification passed with no remaining matches for the three config
 The final few-shot run recorded:
 
 
-
 | Final ticket status | Tickets |
-
 |---|---:|
-
 | Classified using JSON output | 135 |
-
 | Classified using keyword fallback | 12 |
-
 | Flagged for invalid model output | 9 |
-
 | Flagged as long | 4 |
-
 | Skipped as empty | 4 |
-
 | \*\*Total\*\* | \*\*164\*\* |
-
-
-
 Transient failures were recovered through retry handling. Invalid outputs, empty inputs, long inputs, and budget-exhausted tickets are handled explicitly rather than silently treated as successful classifications.
 
 
@@ -539,21 +446,12 @@ Transient failures were recovered through retry handling. Invalid outputs, empty
 The evaluation compares classification performance and token use on the 147 tickets that received a classification.
 
 
-
 | Measure | Zero-shot | Few-shot |
-
 |---|---:|---:|
-
 | Correct classifications | 126 / 147 | 147 / 147 |
-
 | Accuracy | 85.71% | 100.00% |
-
 | Total response tokens | 18,292 | 31,396 |
-
 | Tokens per classified ticket | 124.44 | 213.58 |
-
-
-
 In this mock-model evaluation, few-shot prompting improved observed accuracy by \*\*14.29 percentage points\*\* while using 13,104 additional response tokens, or about 89.14 extra tokens per classified ticket. The result is specific to the supplied synthetic evaluation and mock model; it should not be interpreted as a guarantee of real-world production accuracy.
 
 
@@ -577,23 +475,13 @@ A zero-shot run with a token budget of 6,000 recorded 104 budget-exhausted ticke
 The final output recorded these routing totals:
 
 
-
 | Route | Tickets |
-
 |---|---:|
-
 | Human review | 17 |
-
 | Premium desk | 11 |
-
 | Security team | 34 |
-
 | Support queue | 102 |
-
 | \*\*Total\*\* | \*\*164\*\* |
-
-
-
 Fraud tickets are routed to the security team at high priority; Premium customers can be routed to the premium desk; and invalid, empty, long, or budget-exhausted cases are routed for human review. Routing is a rule-based decision in this project, separate from the model's predicted category.
 
 
@@ -605,17 +493,10 @@ Fraud tickets are routed to the security team at high priority; Premium customer
 The local policy retriever chunks policy text and ranks matching passages using TF-IDF similarity. The experiment compares chunks with 10-word overlap against chunks without overlap.
 
 
-
 | Configuration | Chunks | Answerable questions | Retrieval hits | Expected facts found | Unanswerable questions | Fallback answers |
-
 |---|---:|---:|---:|---:|---:|---:|
-
 | 10-word overlap | 15 | 12 | 12 | 12 | 2 | 2 |
-
 | No overlap | 13 | 12 | 12 | 10 | 2 | 2 |
-
-
-
 In this evaluation, overlap preserved key facts that could otherwise be split across chunk boundaries. The no-overlap configuration retrieved relevant material for all 12 answerable questions, but only 10 answers contained the expected fact. Both configurations returned fallback answers for the two unanswerable questions.
 
 
@@ -683,27 +564,15 @@ The refund ledger is a \*\*local simulation\*\*. No real payment, bank transfer,
 \### Seven scenario results
 
 
-
 | Scenario | Outcome | Refund amount (INR) | Expected amount (INR) | Model calls | Tokens |
-
 |---|---|---:|---:|---:|---:|
-
 | S1 | REFUND | 128.25 | 128.25 | 5 | 1,152 |
-
 | S2 | REFUND | 135.00 | 135.00 | 5 | 1,152 |
-
 | S3 | ESCALATE | 1,999.00 | 1,999.00 | 5 | 1,139 |
-
 | S4 | DENIED | 0.00 | 0.00 | 4 | 809 |
-
 | S5 | DENIED | 0.00 | 0.00 | 3 | 490 |
-
 | S6 | NOT\_FOUND | 0.00 | 0.00 | 2 | 174 |
-
 | S7 | FALLBACK\_MAX\_ITERATIONS | 0.00 | 0.00 | 6 | 3,306 |
-
-
-
 All seven scenario amounts matched their expected amounts. S3 correctly escalated a refund above INR 1,000; its INR 1,999 amount is not an automatically issued refund.
 
 
@@ -711,21 +580,12 @@ All seven scenario amounts matched their expected amounts. S3 correctly escalate
 \### Failure handling and resume behaviour
 
 
-
 | Demonstration | Observed outcome |
-
 |---|---|
-
 | Token limit reached | `FALLBACK\_TOKEN\_LIMIT` |
-
 | Time limit reached | `FALLBACK\_TIMEOUT` |
-
 | Maximum of six model calls reached | `FALLBACK\_MAX\_ITERATIONS` |
-
 | Checkpoint/resume demonstration | Resumed with final status `REFUND` |
-
-
-
 In the resume demonstration, the tools executed across the simulated interruption and continuation were `get\_order`, `search\_policy`, `calculate\_refund`, and `issue\_refund`. The resumed answer reported the simulated INR 128.25 refund. Checkpointing helps preserve progress across an interruption; it does not replace production-grade transaction guarantees or idempotency controls.
 
 
@@ -807,6 +667,3 @@ The agent separates reasoning from actions. A model response alone does not esta
 \- \[ ] All work is on the `main` branch.
 
 \- \[ ] The repository is public and the submission link resolves to `https://github.com/anu2103/instamart-copilot/tree/main`.
-
-
-
