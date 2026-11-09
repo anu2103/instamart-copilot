@@ -1,42 +1,22 @@
-\# Instamart Copilot
-
-\### Customer Intelligence · Retention Modelling · Policy-Grounded Support Automation
+\# Instamart Customer Intelligence \& Support Copilot
 
 
 
-An offline-first analytics and support-automation project built with Python, pandas, NumPy, scikit-learn, SQLite, and the supplied deterministic `mock\_llm.py`.
+\*\*From raw commerce data to customer retention signals, policy-grounded support, and controlled refund decisions.\*\*
 
 
 
-This project follows the customer journey from raw order data to actionable retention insights, then extends the workflow into privacy-aware ticket triage, policy retrieval, and a tool-using refund agent. All language-model calls use the supplied offline mock—no API key, paid service, or network connection is required.
+A reproducible, offline-first analytics and support project that combines data quality checks, SQL analysis, customer segmentation, lapse-risk modelling, ticket triage, policy retrieval, and a tool-using refund agent.
 
 
 
-> \*\*Project principle:\*\* make each decision inspectable. Data transformations are validated, model results are saved as outputs, ticket handling includes guardrails, policy answers are grounded in retrieved documents, and refund actions are constrained by explicit business rules.
+\*\*Repository:\*\* \[anu2103/instamart-copilot](https://github.com/anu2103/instamart-copilot)  
 
+\*\*Submission branch:\*\* `main`  
 
+\*\*Runtime:\*\* Python 3.11+  
 
-\## Contents
-
-
-
-\- \[Overview](#overview)
-
-\- \[Reproduce](#reproduce)
-
-\- \[Part A — Data Quality and Analytics](#part-a--data-quality-and-analytics)
-
-\- \[Part B — Customer Segmentation and Lapse Prediction](#part-b--customer-segmentation-and-lapse-prediction)
-
-\- \[Part C — Ticket Triage and Policy RAG](#part-c--ticket-triage-and-policy-rag)
-
-\- \[Part D — Tool-Using Refund Agent](#part-d--tool-using-refund-agent)
-
-\- \[Limitations and Next Steps](#limitations-and-next-steps)
-
-
-
-\---
+\*\*Model execution:\*\* Supplied offline `mock\_llm.py` — no API key or paid service required.
 
 
 
@@ -44,101 +24,47 @@ This project follows the customer journey from raw order data to actionable rete
 
 
 
-\### Problem statement
+Quick-commerce teams need more than order totals. They need trustworthy data, useful customer segments, early retention signals, consistent support routing, and safeguards around customer refunds.
 
 
 
-An online grocery business needs more than a dashboard. It needs reliable customer and order data, a way to identify customers who may stop purchasing, consistent support-ticket routing, policy answers traceable to source documents, and safe handling of refund requests.
+This project builds an end-to-end workflow around those needs. It starts with synthetic customer, product, order, and support-ticket data, then progresses from analytical foundations to machine-learning experiments and policy-aware automation.
 
 
 
-\### What this project delivers
+\### What the project delivers
 
 
 
-| Workstream | Implementation | Evidence produced |
+| Workstream | Outcome |
 
-|---|---|---|
+|---|---|
 
-| Data foundation | Raw-data audit, cleaning, SQLite database, SQL queries and validation | Clean datasets, database and analysis outputs |
+| Part A — Data foundation | Raw-data audit, cleaning, SQLite database, SQL analysis, and validation checkpoints |
 
-| Customer intelligence | RFM features, K-means segmentation and lapse prediction | Segment profiles, model evaluation, feature importance and retention list |
+| Part B — Customer intelligence | RFM features, K-means customer segments, lapse-risk modelling, and a retention-priority list |
 
-| Support triage | PII redaction, zero-shot/few-shot prompts, retries, output validation, token budget and routing | Ticket results, prompt comparison, confusion summary and budget demonstration |
+| Part C — Support copilot | PII redaction, ticket guardrails, zero-shot/few-shot triage comparison, retry handling, token-budget handling, and policy retrieval evaluation |
 
-| Policy retrieval | Chunked policy documents, TF-IDF retrieval and grounded mock answers | Chunk-overlap evaluation outputs |
-
-| Refund automation | Order lookup, policy search, refund calculation, simulated issue/escalation and checkpointing | Scenario summary, run log, refund ledger and state checkpoints |
+| Part D — Controlled refund agent | Policy-aware tool use, refund calculations, escalation rules, execution limits, checkpointing, and resume testing |
 
 
 
-\### Technology
+\### Design principles
 
 
 
-\- \*\*Language:\*\* Python 3.11 or newer
+\- \*\*Reproducibility:\*\* generated data and fixed seeds support repeatable experiments.
 
-\- \*\*Data and modelling:\*\* pandas, NumPy, scikit-learn and joblib
+\- \*\*Evidence over claims:\*\* reported results are numerical and tied to saved outputs.
 
-\- \*\*Storage and queries:\*\* SQLite and SQL
+\- \*\*Privacy before classification:\*\* email addresses, phone numbers, and order IDs are redacted before ticket processing.
 
-\- \*\*Language-model interface:\*\* supplied `mock\_llm.py`, used offline
+\- \*\*Grounded support:\*\* policy answers are retrieved from local policy documents; unsupported questions receive a fallback.
 
-\- \*\*Reproducibility:\*\* fixed random seeds where specified and saved CSV/JSONL outputs
+\- \*\*Controlled actions:\*\* refunds are simulated locally, and high-value refunds require human approval.
 
-
-
-\### Repository structure
-
-
-
-```text
-
-.
-
-├── generate\_data.py
-
-├── mock\_llm.py
-
-├── requirements.txt
-
-├── .gitignore
-
-├── README.md
-
-├── data/
-
-│   └── policies/
-
-│       ├── delivery\_policy.txt
-
-│       ├── escalation\_policy.txt
-
-│       ├── payment\_policy.txt
-
-│       ├── privacy\_policy.txt
-
-│       └── refund\_policy.txt
-
-├── scripts/
-
-├── sql/
-
-│   └── queries.sql
-
-├── outputs/
-
-└── state/
-
-```
-
-
-
-The supplied `generate\_data.py` and `mock\_llm.py` must remain unmodified. Generated data and intermediate files should be reproducible from the scripts. Commit the required evaluation outputs, source code, SQL, policy text files and agent evidence. Do not commit secrets, virtual environments, screenshots or prohibited media.
-
-
-
-\---
+\- \*\*Offline by design:\*\* the supplied mock language model avoids external accounts, API keys, and paid inference.
 
 
 
@@ -146,165 +72,183 @@ The supplied `generate\_data.py` and `mock\_llm.py` must remain unmodified. Gene
 
 
 
-Run the following commands from the repository root. These instructions use Windows PowerShell.
+Run the project from the repository root. Use Python 3.11 or newer and SQLite 3.25 or newer. All dependencies are free and open source.
 
 
 
-\### 1. Create the environment and install dependencies
+\### 1. Clone and create the environment
 
 
+
+```bash
+
+git clone https://github.com/anu2103/instamart-copilot.git
+
+cd instamart-copilot
+
+
+
+python -m venv .venv
+
+```
+
+
+
+Activate the environment:
+
+
+
+\*\*Windows PowerShell\*\*
 
 ```powershell
-
-py -3 -m venv .venv
-
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 .\\.venv\\Scripts\\Activate.ps1
 
+```
+
+
+
+\*\*Linux or macOS\*\*
+
+```bash
+
+source .venv/bin/activate
+
+```
+
+
+
+Install the project dependencies:
+
+
+
+```bash
+
 python -m pip install --upgrade pip
 
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 
 ```
 
 
 
-Python 3.11 or newer is required. If the `py -3` launcher is unavailable, use `python -m venv .venv` with a compatible Python installation.
+\### 2. Generate and validate the data
 
 
 
-\### 2. Generate the data and run Part A
+Run the commands in this order:
 
 
 
-```powershell
+```bash
 
-python .\\generate\_data.py
+python generate\_data.py
 
-python .\\scripts\\audit\_raw.py
+python scripts/audit\_raw.py
 
-python .\\scripts\\clean\_data.py
+python scripts/clean\_data.py
 
-python .\\scripts\\build\_database.py
+python scripts/build\_database.py
 
-python .\\scripts\\validate\_data.py
+python scripts/run\_sql\_queries.py
 
-python .\\scripts\\run\_sql\_queries.py
+python scripts/analyze\_data.py
 
-python .\\scripts\\analyze\_data.py
-
-```
-
-
-
-The previously shared validation run finished with `ALL CHECKPOINTS PASSED`.
-
-
-
-\### 3. Run Part B
-
-
-
-```powershell
-
-python .\\scripts\\build\_rfm.py
-
-python .\\scripts\\cluster\_customers.py
-
-python .\\scripts\\profile\_segments.py
-
-python .\\scripts\\build\_lapse\_dataset.py
-
-python .\\scripts\\prepare\_lapse\_data.py
-
-python .\\scripts\\train\_lapse\_models.py
-
-python .\\scripts\\oversample\_lapse\_model.py
-
-python .\\scripts\\finalize\_lapse\_model.py
+python scripts/validate\_data.py
 
 ```
 
 
 
-\### 4. Run Part C
+The validation script should finish with:
 
 
 
-```powershell
+```text
 
-python .\\scripts\\triage\_tickets.py
-
-python .\\scripts\\policy\_rag.py
+ALL CHECKPOINTS PASSED
 
 ```
 
 
 
-\### 5. Run Part D
+\### 3. Build customer intelligence models
 
 
 
-```powershell
+```bash
 
-python .\\scripts\\refund\_agent.py
+python scripts/build\_rfm.py
 
-```
+python scripts/cluster\_customers.py
 
+python scripts/profile\_segments.py
 
+python scripts/build\_lapse\_dataset.py
 
-Run the scripts in order because later stages depend on data and model artifacts created earlier. Before submission, verify that every command matches a real, committed filename in the repository.
+python scripts/prepare\_lapse\_data.py
 
+python scripts/train\_lapse\_models.py
 
+python scripts/oversample\_lapse\_model.py
 
-\### 6. Verify files and branch
-
-
-
-```powershell
-
-Get-ChildItem .\\scripts
-
-Get-ChildItem .\\data\\policies\\\*.txt
-
-Get-ChildItem .\\outputs
-
-Get-ChildItem .\\state
-
-git branch --show-current
-
-git status --short
+python scripts/finalize\_lapse\_model.py
 
 ```
 
 
 
-The required branch name is `main`. The final public repository link must point directly to that branch, for example:
+\### 4. Run support triage and policy retrieval
 
 
 
-`https://github.com/<your-account>/<your-repository>/tree/main`
+```bash
+
+python scripts/triage\_tickets.py
+
+python scripts/policy\_rag.py
+
+```
 
 
 
-\---
+The ticket-triage script includes its own acceptance checks. Its final run should report `FINAL ACCEPTANCE CHECKS PASSED`.
 
 
 
-\## Part A — Data Quality and Analytics
+\### 5. Run the refund-agent scenarios
 
 
 
-\### Approach
+```bash
+
+python scripts/refund\_agent.py
+
+```
 
 
 
-Part A establishes a dependable data foundation before analysis. The workflow audits generated raw files, handles duplicate and invalid records, produces cleaned datasets, loads the data into SQLite, executes SQL queries, and validates the resulting tables and business totals.
+This runs the seven scenarios and the safety demonstrations, and writes agent-run logs, a simulated refund ledger, scenario summaries, and checkpoint state.
 
 
 
-\### Data-quality checkpoints
+\*\*Reproducibility note:\*\* run the commands from the repository root and in the order shown. The scripts create intermediate data, SQLite files, model artefacts, and evaluation outputs. The committed outputs are reference evidence; rerunning a script may regenerate them. The final submission should be tested from a fresh clone, not only from an existing working folder.
+
+
+
+\## Part A — Data Foundation and SQL Analysis
+
+
+
+\### Objective
+
+
+
+Create a dependable analytical foundation from synthetic quick-commerce data. The workflow audits raw inputs, handles duplicate and invalid records, produces clean datasets, loads SQLite, runs analytical SQL, and checks important data-quality and business-metric checkpoints.
+
+
+
+\### Data quality and validation
 
 
 
@@ -314,13 +258,13 @@ Part A establishes a dependable data foundation before analysis. The workflow au
 
 | Raw customers | 1,200 |
 
-| Raw products | 40 |
+| Products | 40 |
 
 | Raw orders | 13,084 |
 
 | Duplicate order rows identified | 119 |
 
-| Cleaned orders | 12,309 |
+| Cleaned order rows | 12,309 |
 
 | Completed orders | 11,110 |
 
@@ -328,63 +272,57 @@ Part A establishes a dependable data foundation before analysis. The workflow au
 
 | Completed-order revenue | INR 2,998,668.80 |
 
-| Cleaned customer ages outside 18–60 | 0 |
-
-| Unknown customer gender values retained explicitly | 30 |
 
 
-
-The cleaned customer data contains 610 female, 560 male and 30 unknown gender values. The raw customer data contained 61 missing ages and 6 invalid ages, which were handled during cleaning rather than treated as valid ages.
+The customer dataset contains 1,200 records. The cleaning workflow handles missing or invalid age values, normalises gender values, and standardises city data. The cleaned customer age range is 18–60; gender counts are 610 female, 560 male, and 30 unknown.
 
 
 
-\### Findings
+The raw order count and cleaned order count differ because duplicate and invalid records are addressed during data preparation. The cleaned order dataset is the basis for downstream analysis.
 
 
 
-Completed-order revenue is \*\*INR 2,998,668.80\*\*. The order data decreases from 13,084 raw rows to 12,309 cleaned rows after the documented cleaning and duplicate-handling process.
+\### SQL and analytical workflow
 
 
 
-Keeping unknown gender values explicit avoids silently assigning a gender to customers whose data does not provide one. Validating the cleaned age range also helps prevent invalid values from distorting later customer profiles.
+The project stores the analytical data in `data/instamart.db` and keeps reusable queries in `sql/queries.sql`. The Python SQL runner executes the queries against SQLite. The analysis script produces additional numerical summaries.
 
 
 
-The validation script reported `ALL CHECKPOINTS PASSED` in the previously shared run. Re-run it from a clean clone to confirm the same checkpoints in the submission environment.
+The workflow is designed to make the path from raw input to business result inspectable: audit first, clean next, load the database, run SQL, and validate the results.
 
 
 
-\### Key artifacts
+\### Key finding
 
 
 
-\- `sql/queries.sql` — SQL analysis queries
-
-\- `scripts/audit\_raw.py` — raw-data audit
-
-\- `scripts/clean\_data.py` — data cleaning
-
-\- `scripts/build\_database.py` — SQLite database creation
-
-\- `scripts/validate\_data.py` — data-quality checkpoints
-
-\- `scripts/run\_sql\_queries.py` and `scripts/analyze\_data.py` — query execution and analysis
+The cleaned data contains 11,110 completed orders and INR 2,998,668.80 in completed-order revenue. This becomes the consistent starting point for customer-level features and later retention analysis.
 
 
 
-\---
+\*\*Evidence:\*\* `scripts/audit\_raw.py`, `scripts/clean\_data.py`, `scripts/build\_database.py`, `scripts/run\_sql\_queries.py`, `scripts/analyze\_data.py`, `scripts/validate\_data.py`, and `sql/queries.sql`.
 
 
 
-\## Part B — Customer Segmentation and Lapse Prediction
+\## Part B — Customer Segmentation and Lapse-Risk Modelling
 
 
 
-\### RFM features and segmentation
+\### Objective
 
 
 
-Recency, frequency and monetary (RFM) features summarise customer purchasing behaviour. The reported RFM snapshot date is \*\*1 October 2025\*\*.
+Move from order-level reporting to customer-level decisions. The workflow creates Recency, Frequency, and Monetary (RFM) features, groups customers into interpretable segments, builds a lapse-labelled dataset, evaluates classification models, and produces a retention-priority list.
+
+
+
+\### RFM snapshot
+
+
+
+The RFM snapshot date is \*\*1 October 2025\*\*. The analysis includes 1,175 customers with completed orders.
 
 
 
@@ -392,43 +330,47 @@ Recency, frequency and monetary (RFM) features summarise customer purchasing beh
 
 |---|---:|
 
-| Customers with completed orders in the RFM snapshot | 1,175 |
+| Customers with completed orders | 1,175 |
 
 | Median recency | 19 days |
 
-| Mean frequency | 9.4553 |
+| Mean frequency | 9.4553 orders |
 
-| Maximum frequency | 33 |
+| Maximum frequency | 33 orders |
 
 | Mean monetary value | INR 2,552.06 |
 
 | Maximum monetary value | INR 14,766.55 |
 
-| Selected K-means clusters | 4 |
-
-| K=4 silhouette score | 0.526 |
 
 
-
-Four clusters were selected using the recorded elbow and silhouette evaluation.
+Recency measures how recently a customer ordered, frequency measures the number of completed orders, and monetary value measures completed-order spend. Together, these features provide a compact behavioural view of customer activity.
 
 
 
-| Segment | Customers | Potential business action |
+\### Customer segments
+
+
+
+K-means clustering was evaluated using cluster-quality metrics, with \*\*K = 4\*\* selected for the reported segmentation. The four-cluster silhouette score was \*\*0.526\*\*.
+
+
+
+| Segment | Customers | Interpretation |
 
 |---|---:|---|
 
-| Growth Opportunity | 436 | Encourage a second or more frequent purchase with relevant offers |
+| Growth Opportunity | 436 | Customers to nurture through relevant engagement and repeat-purchase opportunities |
 
-| Frequent Loyal | 419 | Reinforce repeat behaviour and avoid unnecessary discounting |
+| Premium | 138 | High-value customers whose experience should be protected |
 
-| At-Risk | 182 | Prioritise relevant win-back outreach |
+| Frequent Loyal | 419 | Regular customers who may respond to loyalty and convenience improvements |
 
-| Premium | 138 | Protect the experience of high-value customers with appropriate service |
+| At-Risk | 182 | Customers who warrant closer retention attention |
 
 
 
-These names translate the clusters into practical customer groups. They are descriptive profiles of model-generated clusters, not proof that every customer in a group behaves identically.
+These labels are business-facing interpretations of the clusters, not guarantees about an individual customer's future behaviour.
 
 
 
@@ -436,23 +378,25 @@ These names translate the clusters into practical customer groups. They are desc
 
 
 
-The lapse dataset contains \*\*1,156 customers\*\*. A customer is labelled lapsed if they had no completed order during \*\*1–30 September 2025\*\*, using a \*\*1 September 2025\*\* cutoff.
+The lapse dataset contains 1,156 customers. The label identifies whether a customer had no completed order from \*\*1 September through 30 September 2025\*\*, using the 1 September 2025 cutoff.
 
 
 
-| Target | Customers | Share |
+| Measure | Result |
 
-|---|---:|---:|
+|---|---:|
 
-| Lapsed | 443 | 38.32% |
+| Customers in lapse dataset | 1,156 |
 
-| Not lapsed | 713 | 61.68% |
+| Lapsed customers | 443 |
 
-| Total | 1,156 | 100% |
+| Non-lapsed customers | 713 |
+
+| Lapse share | 38.32% |
 
 
 
-The reported best Random Forest configuration used `max\_depth=8` and `min\_samples\_leaf=10`.
+The reported Random Forest configuration uses `max\_depth=8` and `min\_samples\_leaf=10`.
 
 
 
@@ -460,129 +404,205 @@ The reported best Random Forest configuration used `max\_depth=8` and `min\_samp
 
 |---|---:|
 
-| F1 score | 0.655367 |
+| Precision | 0.6591 |
 
-| Precision | 0.659091 |
+| Recall | 0.6517 |
 
-| Recall | 0.651685 |
+| F1 score | 0.6554 |
+
+| Confusion matrix — true negatives | 113 |
+
+| Confusion matrix — false positives | 30 |
+
+| Confusion matrix — false negatives | 31 |
+
+| Confusion matrix — true positives | 58 |
 
 
 
-The reported confusion matrix is:
+The confusion matrix is shown in the order `\[\[TN, FP], \[FN, TP]]`. The F1 score balances precision and recall; neither a good F1 score nor a predicted risk guarantees that a particular customer will lapse.
 
 
 
-| Actual / Predicted | Not lapsed | Lapsed |
+An oversampled Random Forest experiment increased recall to approximately \*\*0.8090\*\*, with precision approximately \*\*0.5538\*\*, F1 approximately \*\*0.6575\*\*, and accuracy approximately \*\*0.6767\*\*. This illustrates the trade-off: finding more potential lapses can also create more false positives.
+
+
+
+\### Feature importance
+
+
+
+The reported Random Forest feature-importance ranking is:
+
+
+
+| Feature | Importance |
+
+|---|---:|
+
+| Frequency | 0.2797 |
+
+| Monetary value | 0.2714 |
+
+| Recency | 0.1152 |
+
+| Average delivery minutes | 0.0612 |
+
+| Cancellation rate | 0.0523 |
+
+
+
+Frequency and monetary value have the highest importance among the listed features. These values describe the fitted model's relative feature importance; they do not establish that a feature causes customer behaviour.
+
+
+
+\### Business application
+
+
+
+The retention list in `outputs/retention\_list.csv` prioritises Premium customers from the test set by predicted lapse probability. A practical next step would be to test targeted retention messages or service improvements and measure their impact rather than assuming that a prediction itself prevents churn.
+
+
+
+\*\*Evidence:\*\* `outputs/rfm.csv`, `outputs/kmeans\_metrics.csv`, `outputs/customer\_segments.csv`, `outputs/segment\_profiles.csv`, `outputs/lapse\_dataset.csv`, `outputs/model\_evaluation.csv`, `outputs/logistic\_cv\_results.csv`, `outputs/forest\_cv\_results.csv`, `outputs/logistic\_regression\_coefficients.csv`, `outputs/random\_forest\_feature\_importance.csv`, `outputs/retention\_list.csv`, and `outputs/lapse\_model.joblib`.
+
+
+
+\## Part C — Privacy-Aware Ticket Triage and Policy RAG
+
+
+
+\### Objective
+
+
+
+Build a local support workflow that redacts sensitive patterns, applies input guardrails, classifies eligible tickets, handles transient model failures, compares prompt strategies, and retrieves answers from policy documents.
+
+
+
+\### Ticket privacy and guardrails
+
+
+
+The supplied ticket dataset contains 164 tickets. The final triage run recorded the following redactions:
+
+
+
+| Pattern | Substitutions |
+
+|---|---:|
+
+| Email addresses | 55 |
+
+| Phone numbers | 91 |
+
+| Order IDs | 132 |
+
+| \*\*Total substitutions\*\* | \*\*278\*\* |
+
+
+
+The redaction verification passed with no remaining matches for the three configured patterns. Four empty tickets were skipped and four long tickets were flagged rather than sent for normal classification.
+
+
+
+The final few-shot run recorded:
+
+
+
+| Final ticket status | Tickets |
+
+|---|---:|
+
+| Classified using JSON output | 135 |
+
+| Classified using keyword fallback | 12 |
+
+| Flagged for invalid model output | 9 |
+
+| Flagged as long | 4 |
+
+| Skipped as empty | 4 |
+
+| \*\*Total\*\* | \*\*164\*\* |
+
+
+
+Transient failures were recovered through retry handling. Invalid outputs, empty inputs, long inputs, and budget-exhausted tickets are handled explicitly rather than silently treated as successful classifications.
+
+
+
+\### Zero-shot versus few-shot
+
+
+
+The evaluation compares classification performance and token use on the 147 tickets that received a classification.
+
+
+
+| Measure | Zero-shot | Few-shot |
 
 |---|---:|---:|
 
-| Not lapsed | 113 | 30 |
+| Correct classifications | 126 / 147 | 147 / 147 |
 
-| Lapsed | 31 | 58 |
+| Accuracy | 85.71% | 100.00% |
 
+| Total response tokens | 18,292 | 31,396 |
 
+| Tokens per classified ticket | 124.44 | 213.58 |
 
-An oversampled Random Forest run reported F1 \*\*0.6575\*\*, recall \*\*0.8090\*\*, precision \*\*0.5538\*\* and accuracy \*\*0.6767\*\*. The higher recall comes with lower precision, so more customers may be flagged for outreach, including some who would not lapse.
 
 
+In this mock-model evaluation, few-shot prompting improved observed accuracy by \*\*14.29 percentage points\*\* while using 13,104 additional response tokens, or about 89.14 extra tokens per classified ticket. The result is specific to the supplied synthetic evaluation and mock model; it should not be interpreted as a guarantee of real-world production accuracy.
 
-The saved feature-importance output ranks frequency (\*\*0.279718\*\*) and monetary value (\*\*0.271441\*\*) highest among the reported features, followed by recency (\*\*0.115184\*\*), average delivery time (\*\*0.061242\*\*) and cancellation rate (\*\*0.052334\*\*).
 
 
+The zero-shot confusion table recorded 10 technical tickets predicted as billing and 11 fraud tickets predicted as billing. These errors matter operationally because misrouting fraud-related tickets could delay the required security response.
 
-\### Business interpretation
 
 
+\### Token-budget demonstration
 
-The model can support prioritisation, not automatic decisions about customers. A retention list is most useful when paired with a controlled outreach experiment and measurement of incremental repeat purchases. Model quality should be judged against the cost of missed lapses and unnecessary outreach, not by one metric alone.
 
 
+A zero-shot run with a token budget of 6,000 recorded 104 budget-exhausted tickets, 49 classified tickets, and 6,101 total response tokens. The run demonstrates that budget handling must account for the cost of the response that crosses the limit; the observed total is slightly above the configured budget. The final output explicitly records budget-exhausted cases rather than presenting them as successful classifications.
 
-\### Key artifacts
 
 
+\### Routing policy
 
-\- `outputs/rfm.csv`
 
-\- `outputs/kmeans\_metrics.csv`
 
-\- `outputs/customer\_segments.csv`
+The final output recorded these routing totals:
 
-\- `outputs/segment\_profiles.csv`
 
-\- `outputs/lapse\_dataset.csv`
 
-\- `outputs/model\_evaluation.csv`
+| Route | Tickets |
 
-\- `outputs/logistic\_cv\_results.csv`
+|---|---:|
 
-\- `outputs/forest\_cv\_results.csv`
+| Human review | 17 |
 
-\- `outputs/logistic\_regression\_coefficients.csv`
+| Premium desk | 11 |
 
-\- `outputs/random\_forest\_feature\_importance.csv`
+| Security team | 34 |
 
-\- `outputs/retention\_list.csv`
+| Support queue | 102 |
 
-\- `outputs/lapse\_model.joblib`
+| \*\*Total\*\* | \*\*164\*\* |
 
 
 
-\---
+Fraud tickets are routed to the security team at high priority; Premium customers can be routed to the premium desk; and invalid, empty, long, or budget-exhausted cases are routed for human review. Routing is a rule-based decision in this project, separate from the model's predicted category.
 
 
 
-\## Part C — Ticket Triage and Policy RAG
+\### Policy retrieval and overlap experiment
 
 
 
-\### C1. Support-ticket triage
-
-
-
-The triage pipeline uses the supplied offline mock model to classify tickets into \*\*billing\*\*, \*\*delivery\*\*, \*\*technical\*\* or \*\*fraud\*\*. It compares zero-shot and few-shot prompting and adds operational guardrails around the model response.
-
-
-
-The implementation includes:
-
-
-
-\- Redaction of email addresses, phone numbers and order IDs before classification.
-
-\- Explicit handling for empty tickets and tickets estimated above 400 tokens.
-
-\- A maximum of three retries for transient failures, using exponential backoff with jitter.
-
-\- JSON parsing and category validation, with a keyword fallback for non-JSON responses.
-
-\- A separate invalid-output status when a response cannot safely be accepted.
-
-\- A token-budget demonstration and routing rules for fraud, premium customers, and human review.
-
-
-
-The previously shared ticket dataset contains \*\*164 rows\*\*, including \*\*4 empty\*\* and \*\*4 long\*\* tickets. Reported redaction counts are \*\*55 email addresses\*\*, \*\*91 phone numbers\*\* and \*\*132 order IDs\*\*—278 redaction matches in total. A single ticket can contain more than one match.
-
-
-
-The earlier prompt evaluation reported \*\*147 classified tickets\*\* for each prompt comparison. Zero-shot accuracy was \*\*85.7% (126/147)\*\*, while the reported few-shot run reached \*\*100%\*\* on that evaluation set. The zero-shot errors included 11 fraud cases classified as billing and 10 technical cases classified as billing.
-
-
-
-These results describe a deterministic mock environment and a finite evaluation set. They should not be interpreted as evidence of equivalent accuracy with real customer traffic or a production language model.
-
-
-
-\### C2. Policy retrieval-augmented generation (RAG)
-
-
-
-The policy assistant retrieves policy text before asking the offline mock model to answer. Five policy files cover delivery, escalation, payment, privacy and refunds. The reported chunk configuration uses \*\*40-word chunks\*\* with \*\*10-word overlap\*\*. Retrieval uses TF-IDF-style lexical weighting and returns the top three chunks for a question.
-
-
-
-Overlap matters because policy facts can straddle a chunk boundary. In the reported example, a question about the delivery-time threshold for a full refund retrieved the relevant refund policy, but a zero-overlap chunk omitted the threshold phrase from the answer context.
+The local policy retriever chunks policy text and ranks matching passages using TF-IDF similarity. The experiment compares chunks with 10-word overlap against chunks without overlap.
 
 
 
@@ -596,163 +616,129 @@ Overlap matters because policy facts can straddle a chunk boundary. In the repor
 
 
 
-With overlap, the evaluation found all \*\*12/12\*\* expected facts and used the fallback for both \*\*2/2\*\* unanswerable questions. Without overlap, retrieval still hit the expected document for all 12 answerable questions, but only \*\*10/12\*\* expected facts appeared in the answers. This shows that retrieving the right document is not sufficient if the required sentence is split across chunks.
+In this evaluation, overlap preserved key facts that could otherwise be split across chunk boundaries. The no-overlap configuration retrieved relevant material for all 12 answerable questions, but only 10 answers contained the expected fact. Both configurations returned fallback answers for the two unanswerable questions.
 
 
 
-\### Key artifacts
+The policy documents cover refunds, delivery, payment, privacy, and escalation. Retrieval quality and answer quality are not identical: finding a relevant passage does not by itself guarantee that the final answer contains the required threshold or rule.
 
 
 
-\- `scripts/triage\_tickets.py`
+\*\*Evidence:\*\* `outputs/triage\_zero\_shot.csv`, `outputs/triage\_few\_shot.csv`, `outputs/triage\_results.csv`, `outputs/triage\_prompt\_comparison.csv`, `outputs/triage\_zero\_shot\_confusion.csv`, `outputs/triage\_budget\_demo.csv`, `outputs/policy\_eval\_overlap10.csv`, `outputs/policy\_eval\_overlap0.csv`, and `outputs/policy\_eval\_summary.csv`.
 
-\- `scripts/policy\_rag.py`
 
-\- `data/policies/\*.txt`
 
-\- `outputs/triage\_results.csv`
+\## Part D — Policy-Grounded Refund Agent
 
-\- `outputs/triage\_zero\_shot.csv`
 
-\- `outputs/triage\_few\_shot.csv`
 
-\- `outputs/triage\_prompt\_comparison.csv`
+\### Objective
 
-\- `outputs/triage\_zero\_shot\_confusion.csv`
 
-\- `outputs/triage\_budget\_demo.csv`
 
-\- Policy-evaluation CSV outputs generated by `scripts/policy\_rag.py`
+Implement a tool-using agent that looks up orders, retrieves policy, calculates eligible refunds, and either issues a simulated refund, denies an ineligible request, reports a missing order, or escalates to a human lead.
 
 
 
-\---
+\### Tool workflow and safeguards
 
 
 
-\## Part D — Tool-Using Refund Agent
+The agent uses these local tools:
 
 
 
-\### Design
+\- `get\_order` — retrieves order details.
 
+\- `search\_policy` — retrieves relevant policy content.
 
+\- `calculate\_refund` — calculates the eligible refund amount.
 
-The refund agent uses a tool-driven reasoning loop to check an order and apply written refund rules. Its tools cover order lookup, policy search, refund calculation, simulated refund issuance and escalation to a human lead.
+\- `issue\_refund` — records a simulated refund.
 
+\- `escalate\_to\_human` — routes cases requiring approval to a human lead.
 
 
-The agent applies these controls:
 
+The workflow applies these rules:
 
 
-1\. An unknown order returns `NOT\_FOUND`.
 
-2\. An order that is not completed is denied.
+\- Only completed orders are eligible for late-delivery refunds.
 
-3\. A completed order delivered within the policy threshold is not eligible for the late-delivery refund.
+\- A completed order delivered in more than 45 minutes is eligible under the configured late-delivery policy.
 
-4\. A calculated refund up to INR 1,000 is issued by the simulated tool.
+\- Refunds up to INR 1,000 can be approved automatically.
 
-5\. A refund above INR 1,000 is escalated to a human lead.
+\- Refunds above INR 1,000 require human approval.
 
-6\. Token, time and iteration limits trigger explicit fallback outcomes.
+\- Missing orders, ineligible orders, execution limits, and unresolved cases receive explicit outcomes rather than being reported as successful refunds.
 
-7\. Run logs and state checkpoints support inspection and crash/resume testing.
 
 
+The refund ledger is a \*\*local simulation\*\*. No real payment, bank transfer, or customer account is affected.
 
-\*\*Safety boundary:\*\* `issue\_refund` and the refund ledger are part of a local simulation. They do not move real money or connect to a payment provider.
 
 
+\### Seven scenario results
 
-\### Scenario evaluation
 
 
+| Scenario | Outcome | Refund amount (INR) | Expected amount (INR) | Model calls | Tokens |
 
-The previously shared run reported these outcomes:
+|---|---|---:|---:|---:|---:|
 
+| S1 | REFUND | 128.25 | 128.25 | 5 | 1,152 |
 
+| S2 | REFUND | 135.00 | 135.00 | 5 | 1,152 |
 
-| Scenario | Expected outcome | Reported outcome | Refund amount | Tool calls | Tokens |
+| S3 | ESCALATE | 1,999.00 | 1,999.00 | 5 | 1,139 |
 
-|---|---|---|---:|---:|---:|
+| S4 | DENIED | 0.00 | 0.00 | 4 | 809 |
 
-| S1 | REFUND | REFUND | INR 128.25 | 5 | 1,152 |
+| S5 | DENIED | 0.00 | 0.00 | 3 | 490 |
 
-| S2 | REFUND | REFUND | INR 135.00 | 5 | 1,152 |
+| S6 | NOT\_FOUND | 0.00 | 0.00 | 2 | 174 |
 
-| S3 | ESCALATE | ESCALATE | INR 1,999.00 | 5 | 1,139 |
+| S7 | FALLBACK\_MAX\_ITERATIONS | 0.00 | 0.00 | 6 | 3,306 |
 
-| S4 | DENIED | DENIED | INR 0.00 | 4 | 809 |
 
-| S5 | DENIED | DENIED | INR 0.00 | 3 | 490 |
 
-| S6 | NOT\_FOUND | NOT\_FOUND | INR 0.00 | 2 | 174 |
+All seven scenario amounts matched their expected amounts. S3 correctly escalated a refund above INR 1,000; its INR 1,999 amount is not an automatically issued refund.
 
-| S7 | FALLBACK | FALLBACK\_MAX\_ITERATIONS | INR 0.00 | 6 | 3,306 |
 
 
+\### Failure handling and resume behaviour
 
-The amount for S3 is the \*\*INR 1,999.00\*\* escalation amount, not the INR 1,000 policy threshold. The earlier summary-extraction issue was corrected to read the amount from the relevant tool observation.
 
 
-
-\### Safety and recovery tests
-
-
-
-| Test | Reported result |
+| Demonstration | Observed outcome |
 
 |---|---|
 
-| S1 with a token limit of 200 | `FALLBACK\_TOKEN\_LIMIT` |
+| Token limit reached | `FALLBACK\_TOKEN\_LIMIT` |
 
-| S1 with `time\_limit\_seconds=0` | `FALLBACK\_TIMEOUT` |
+| Time limit reached | `FALLBACK\_TIMEOUT` |
 
-| S7 with a maximum of 6 iterations | `FALLBACK\_MAX\_ITERATIONS` |
+| Maximum of six model calls reached | `FALLBACK\_MAX\_ITERATIONS` |
 
-| S1 crash/resume demonstration | Resumed to `REFUND` for INR 128.25 |
-
-
-
-In the crash/resume demonstration, the tool sequence was `get\_order → search\_policy → calculate\_refund → issue\_refund`. The recorded run ID was `S1\_RESUME\_DEMO\_bb65e316`. Run logs, the refund ledger, the scenario summary and checkpoint files make the simulated behaviour inspectable.
+| Checkpoint/resume demonstration | Resumed with final status `REFUND` |
 
 
 
-\### ReAct and plan-and-execute
+In the resume demonstration, the tools executed across the simulated interruption and continuation were `get\_order`, `search\_policy`, `calculate\_refund`, and `issue\_refund`. The resumed answer reported the simulated INR 128.25 refund. Checkpointing helps preserve progress across an interruption; it does not replace production-grade transaction guarantees or idempotency controls.
 
 
 
-\*\*ReAct-style execution\*\* alternates between a model decision and a tool result. It is useful when the next action depends on the current order status or calculated refund. Its disadvantage is that extra iterations increase token use and the risk of loops, so iteration limits are important.
+\### Why this design matters
 
 
 
-\*\*Plan-and-execute\*\* creates a sequence of steps before carrying them out. It can make a predictable workflow easier to audit, but a fixed plan may need adjustment when a tool returns an unexpected result. Either design still needs order validation, policy checks, monetary limits, escalation and explicit failure handling. This implementation demonstrates a bounded tool loop with checkpoints and simulated side effects; it is not a production payment system.
+The agent separates reasoning from actions. A model response alone does not establish that a refund is valid: the order record, policy rules, computed amount, approval threshold, tool result, and final status all matter. Execution limits and human escalation provide explicit failure paths instead of allowing an agent to continue indefinitely or claim an unperformed action.
 
 
 
-\### Key artifacts
-
-
-
-\- `scripts/refund\_agent.py`
-
-\- `outputs/agent\_scenario\_summary.csv`
-
-\- `outputs/agent\_runs.jsonl`
-
-\- `outputs/refund\_ledger.jsonl`
-
-\- `state/` — agent checkpoint JSON files
-
-
-
-Confirm these Part D files exist after the final run and include the required ones in the repository.
-
-
-
-\---
+\*\*Evidence:\*\* `scripts/refund\_agent.py`, `outputs/agent\_scenario\_summary.csv`, `outputs/agent\_runs.jsonl`, `outputs/refund\_ledger.jsonl`, and the checkpoint files under `state/`.
 
 
 
@@ -764,19 +750,21 @@ Confirm these Part D files exist after the final run and include the required on
 
 
 
-\- \*\*Synthetic data:\*\* results are based on generated data and cannot establish how the system would perform in a real grocery business.
+1\. \*\*Synthetic data:\*\* the project uses generated data and does not establish how the workflow will perform on live Instamart operations.
 
-\- \*\*Offline mock model:\*\* `mock\_llm.py` is deterministic and intentionally simulates selected failure modes. Prompt accuracy is not a benchmark of a hosted model.
+2\. \*\*Offline mock model:\*\* classification accuracy and agent behaviour are evaluated against the supplied `mock\_llm.py`; they do not establish the performance of a hosted or production language model.
 
-\- \*\*Lexical retrieval:\*\* TF-IDF retrieval may miss semantically equivalent wording. Chunk size and overlap affect whether the complete policy fact reaches the answerer.
+3\. \*\*Lapse prediction is not causation:\*\* model feature importance and predicted risk do not prove why a customer lapses or that a retention action will work.
 
-\- \*\*Finite evaluation samples:\*\* ticket and policy results are based on small, predefined evaluation sets. A perfect few-shot score on this set does not guarantee generalisation.
+4\. \*\*Model evaluation scope:\*\* the reported scores apply to the chosen dataset, label window, features, and evaluation split. Performance may change with new customers or different time periods.
 
-\- \*\*Lapse modelling:\*\* customer behaviour can change over time. Precision/recall trade-offs, calibration, temporal validation and business impact need further testing.
+5\. \*\*Lexical retrieval:\*\* TF-IDF can miss semantic matches and can return passages that do not contain the exact fact needed. Chunk size and overlap affect whether policy rules remain together.
 
-\- \*\*Simulated refunds:\*\* the agent ledger is local evidence only; it does not execute real payments, authenticate a customer or provide production-grade authorization.
+6\. \*\*Pattern-based PII redaction:\*\* the configured regular expressions cover the tested email, phone, and order-ID formats, not every possible form of personal or confidential information.
 
-\- \*\*Privacy and operations:\*\* redaction rules can miss unexpected formats. A real deployment would need broader privacy testing, secure logs, monitoring, access controls and human escalation.
+7\. \*\*Simulated refund execution:\*\* the ledger is not connected to a payment provider. Production use would require authenticated access, durable audit logs, idempotency, transaction controls, monitoring, and human approval workflows.
+
+8\. \*\*Reproducibility environment:\*\* dependency compatibility, random seeds, file paths, and generated state should be verified by running the documented sequence in a fresh environment.
 
 
 
@@ -784,51 +772,41 @@ Confirm these Part D files exist after the final run and include the required on
 
 
 
-1\. Evaluate segmentation and lapse prediction on a later time window to reduce temporal leakage risk.
+\- Add automated tests for data contracts, SQL results, model outputs, redaction, routing, policy thresholds, and agent failure paths.
 
-2\. Run controlled retention experiments and measure incremental repeat purchases, margin and customer experience.
+\- Evaluate lapse prediction on a later time window and monitor precision-recall trade-offs before using predictions for customer outreach.
 
-3\. Expand ticket evaluation with independently labelled examples, category-level precision/recall and adversarial PII cases.
+\- Test retention interventions with controlled experiments and track incremental repeat orders.
 
-4\. Compare lexical retrieval with a stronger retrieval method while preserving source attribution and unanswerable-question fallbacks.
+\- Improve policy retrieval with stronger document boundaries, metadata filters, and more varied paraphrased evaluation questions.
 
-5\. Add structured traces for every agent decision and test duplicate tool calls, interrupted runs and idempotency.
+\- Extend privacy testing with additional identifiers and adversarial text patterns.
 
-6\. Before any real refund integration, require authenticated order ownership, authorization checks, durable idempotency keys, audit trails, rate limits and human approval for exceptions.
+\- Add structured observability for retries, token usage, budget exhaustion, tool errors, escalation reasons, and checkpoint recovery.
 
-7\. Keep the repository reproducible: retain the supplied files unchanged, document every reported metric, pin compatible dependencies and rerun the full sequence from a clean clone before submission.
-
-
-
-\---
+\- If integrated with real systems, require authenticated tools, explicit approval for consequential actions, durable idempotency keys, and reconciliation against the payment provider.
 
 
 
-\## Submission checklist
+\### Final submission checklist
 
 
 
-\- \[ ] `generate\_data.py` and `mock\_llm.py` are present and unchanged.
+\- \[ ] `generate\_data.py` and `mock\_llm.py` are included and unchanged.
 
-\- \[ ] `requirements.txt` and `.gitignore` are committed.
+\- \[ ] `requirements.txt`, `.gitignore`, all Part A–D source files, and `sql/queries.sql` are committed.
 
-\- \[ ] All source code for Parts A–D and `sql/queries.sql` are committed.
+\- \[ ] All five policy documents under `data/policies/` are committed.
 
-\- \[ ] All five policy `.txt` files are committed.
+\- \[ ] Required output files are committed; charts and screenshots are not committed.
 
-\- \[ ] Required CSV/JSONL/model outputs and required agent checkpoint evidence are present.
+\- \[ ] The README contains all seven required sections and reports results in text.
 
-\- \[ ] README section names and reproduction commands match the actual repository.
+\- \[ ] Reproduction commands succeed in a fresh environment.
 
-\- \[ ] No screenshots, images, charts, PDFs, slides, audio, video, secrets or virtual environment are committed.
+\- \[ ] All work is on the `main` branch.
 
-\- \[ ] `git branch --show-current` returns `main`.
-
-\- \[ ] All changes are committed and pushed to `origin/main`.
-
-\- \[ ] Repository visibility is \*\*Public\*\*.
-
-\- \[ ] The submitted link opens the `main` branch directly.
+\- \[ ] The repository is public and the submission link resolves to `https://github.com/anu2103/instamart-copilot/tree/main`.
 
 
 

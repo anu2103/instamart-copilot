@@ -1,4 +1,4 @@
-from pathlib import Path
+﻿from pathlib import Path
 import json
 import random
 import re
@@ -570,4 +570,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-PY

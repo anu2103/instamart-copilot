@@ -1,8 +1,8 @@
 scenario_id,status,final_answer,refund_amount,expected_refund_inr,amount_matches,llm_calls,tokens_used,run_id
-S1,REFUND,REFUND: INR 128.25 issued.,128.25,128.25,True,5,1152,S1_59491d56
-S2,REFUND,REFUND: INR 135.0 issued.,135.0,135.0,True,5,1152,S2_3d22e4b8
-S3,ESCALATE,ESCALATE: refund above INR 1000 sent to a human lead.,1999.0,1999.0,True,5,1139,S3_a077895a
-S4,DENIED,DENIED: delivery was within 45 minutes.,0.0,0.0,True,4,809,S4_b0e31a74
-S5,DENIED,DENIED: only completed orders can be refunded.,0.0,0.0,True,3,490,S5_343612e5
-S6,NOT_FOUND,NOT_FOUND: no such order.,0.0,0.0,True,2,174,S6_92fcf438
-S7,FALLBACK_MAX_ITERATIONS,FALLBACK_MAX_ITERATIONS: The agent reached the maximum of 6 model calls without a final answer. Please hand this case to a human support agent.,0.0,0.0,True,6,3306,S7_bcf6d5d7
+S1,REFUND,REFUND: INR 128.25 issued.,128.25,128.25,True,5,1152,S1_15120205
+S2,REFUND,REFUND: INR 135.0 issued.,135.0,135.0,True,5,1152,S2_d839d555
+S3,ESCALATE,ESCALATE: refund above INR 1000 sent to a human lead.,1999.0,1999.0,True,5,1139,S3_a83bce39
+S4,DENIED,DENIED: delivery was within 45 minutes.,0.0,0.0,True,4,809,S4_174fdd50
+S5,DENIED,DENIED: only completed orders can be refunded.,0.0,0.0,True,3,490,S5_282a4327
+S6,NOT_FOUND,NOT_FOUND: no such order.,0.0,0.0,True,2,174,S6_6812f518
+S7,FALLBACK_MAX_ITERATIONS,FALLBACK_MAX_ITERATIONS: The agent reached the maximum of 6 model calls without a final answer. Please hand this case to a human support agent.,0.0,0.0,True,6,3306,S7_43eb8e13
