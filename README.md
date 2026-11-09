@@ -2,7 +2,7 @@
 
 
 
-\*\*From raw commerce data to customer retention signals, policy-grounded support, and controlled refund decisions.\*\*
+From raw commerce data to customer retention signals, policy-grounded support, and controlled refund decisions.
 
 
 
@@ -10,13 +10,13 @@ A reproducible, offline-first analytics and support project that combines data q
 
 
 
-\*\*Repository:\*\* \[anu2103/instamart-copilot](https://github.com/anu2103/instamart-copilot)  
+Repository: \[anu2103/instamart-copilot](https://github.com/anu2103/instamart-copilot)  
 
-\*\*Submission branch:\*\* `main`  
+Submission branch: `main`  
 
-\*\*Runtime:\*\* Python 3.11+  
+Runtime: Python 3.11+  
 
-\*\*Model execution:\*\* Supplied offline `mock\_llm.py` — no API key or paid service required.
+Model execution: Supplied offline `mock\_llm.py` — no API key or paid service required.
 
 
 
@@ -46,17 +46,17 @@ This project builds an end-to-end workflow around those needs. It starts with sy
 
 
 
-\- \*\*Reproducibility:\*\* generated data and fixed seeds support repeatable experiments.
+\- Reproducibility: generated data and fixed seeds support repeatable experiments.
 
-\- \*\*Evidence over claims:\*\* reported results are numerical and tied to saved outputs.
+\- Evidence over claims: reported results are numerical and tied to saved outputs.
 
-\- \*\*Privacy before classification:\*\* email addresses, phone numbers, and order IDs are redacted before ticket processing.
+\- Privacy before classification: email addresses, phone numbers, and order IDs are redacted before ticket processing.
 
-\- \*\*Grounded support:\*\* policy answers are retrieved from local policy documents; unsupported questions receive a fallback.
+\- Grounded support: policy answers are retrieved from local policy documents; unsupported questions receive a fallback.
 
-\- \*\*Controlled actions:\*\* refunds are simulated locally, and high-value refunds require human approval.
+\- Controlled actions: refunds are simulated locally, and high-value refunds require human approval.
 
-\- \*\*Offline by design:\*\* the supplied mock language model avoids external accounts, API keys, and paid inference.
+\- Offline by design: the supplied mock language model avoids external accounts, API keys, and paid inference.
 
 
 
@@ -90,7 +90,7 @@ Activate the environment:
 
 
 
-\*\*Windows PowerShell\*\*
+Windows PowerShell
 
 ```powershell
 
@@ -100,7 +100,7 @@ Activate the environment:
 
 
 
-\*\*Linux or macOS\*\*
+Linux or macOS
 
 ```bash
 
@@ -224,7 +224,7 @@ This runs the seven scenarios and the safety demonstrations, and writes agent-ru
 
 
 
-\*\*Reproducibility note:\*\* run the commands from the repository root and in the order shown. The scripts create intermediate data, SQLite files, model artefacts, and evaluation outputs. The committed outputs are reference evidence; rerunning a script may regenerate them. The final submission should be tested from a fresh clone, not only from an existing working folder.
+Reproducibility note: run the commands from the repository root and in the order shown. The scripts create intermediate data, SQLite files, model artefacts, and evaluation outputs. The committed outputs are reference evidence; rerunning a script may regenerate them. The final submission should be tested from a fresh clone, not only from an existing working folder.
 
 
 
@@ -282,7 +282,7 @@ The cleaned data contains 11,110 completed orders and INR 2,998,668.80 in comple
 
 
 
-\*\*Evidence:\*\* `scripts/audit\_raw.py`, `scripts/clean\_data.py`, `scripts/build\_database.py`, `scripts/run\_sql\_queries.py`, `scripts/analyze\_data.py`, `scripts/validate\_data.py`, and `sql/queries.sql`.
+Evidence: `scripts/audit\_raw.py`, `scripts/clean\_data.py`, `scripts/build\_database.py`, `scripts/run\_sql\_queries.py`, `scripts/analyze\_data.py`, `scripts/validate\_data.py`, and `sql/queries.sql`.
 
 
 
@@ -302,7 +302,7 @@ Move from order-level reporting to customer-level decisions. The workflow create
 
 
 
-The RFM snapshot date is \*\*1 October 2025\*\*. The analysis includes 1,175 customers with completed orders.
+The RFM snapshot date is 1 October 2025. The analysis includes 1,175 customers with completed orders.
 
 
 | Measure | Result |
@@ -322,7 +322,7 @@ Recency measures how recently a customer ordered, frequency measures the number 
 
 
 
-K-means clustering was evaluated using cluster-quality metrics, with \*\*K = 4\*\* selected for the reported segmentation. The four-cluster silhouette score was \*\*0.526\*\*.
+K-means clustering was evaluated using cluster-quality metrics, with K = 4 selected for the reported segmentation. The four-cluster silhouette score was 0.526.
 
 
 | Segment | Customers | Interpretation |
@@ -340,7 +340,7 @@ These labels are business-facing interpretations of the clusters, not guarantees
 
 
 
-The lapse dataset contains 1,156 customers. The label identifies whether a customer had no completed order from \*\*1 September through 30 September 2025\*\*, using the 1 September 2025 cutoff.
+The lapse dataset contains 1,156 customers. The label identifies whether a customer had no completed order from 1 September through 30 September 2025, using the 1 September 2025 cutoff.
 
 
 | Measure | Result |
@@ -349,6 +349,7 @@ The lapse dataset contains 1,156 customers. The label identifies whether a custo
 | Lapsed customers | 443 |
 | Non-lapsed customers | 713 |
 | Lapse share | 38.32% |
+
 The reported Random Forest configuration uses `max\_depth=8` and `min\_samples\_leaf=10`.
 
 
@@ -366,7 +367,7 @@ The confusion matrix is shown in the order `\[\[TN, FP], \[FN, TP]]`. The F1 sco
 
 
 
-An oversampled Random Forest experiment increased recall to approximately \*\*0.8090\*\*, with precision approximately \*\*0.5538\*\*, F1 approximately \*\*0.6575\*\*, and accuracy approximately \*\*0.6767\*\*. This illustrates the trade-off: finding more potential lapses can also create more false positives.
+An oversampled Random Forest experiment increased recall to approximately 0.8090, with precision approximately 0.5538, F1 approximately 0.6575, and accuracy approximately 0.6767. This illustrates the trade-off: finding more potential lapses can also create more false positives.
 
 
 
@@ -397,7 +398,7 @@ The retention list in `outputs/retention\_list.csv` prioritises Premium customer
 
 
 
-\*\*Evidence:\*\* `outputs/rfm.csv`, `outputs/kmeans\_metrics.csv`, `outputs/customer\_segments.csv`, `outputs/segment\_profiles.csv`, `outputs/lapse\_dataset.csv`, `outputs/model\_evaluation.csv`, `outputs/logistic\_cv\_results.csv`, `outputs/forest\_cv\_results.csv`, `outputs/logistic\_regression\_coefficients.csv`, `outputs/random\_forest\_feature\_importance.csv`, `outputs/retention\_list.csv`, and `outputs/lapse\_model.joblib`.
+Evidence: `outputs/rfm.csv`, `outputs/kmeans\_metrics.csv`, `outputs/customer\_segments.csv`, `outputs/segment\_profiles.csv`, `outputs/lapse\_dataset.csv`, `outputs/model\_evaluation.csv`, `outputs/logistic\_cv\_results.csv`, `outputs/forest\_cv\_results.csv`, `outputs/logistic\_regression\_coefficients.csv`, `outputs/random\_forest\_feature\_importance.csv`, `outputs/retention\_list.csv`, and `outputs/lapse\_model.joblib`.
 
 
 
@@ -425,7 +426,7 @@ The supplied ticket dataset contains 164 tickets. The final triage run recorded 
 | Email addresses | 55 |
 | Phone numbers | 91 |
 | Order IDs | 132 |
-| \*\*Total substitutions\*\* | \*\*278\*\* |
+| Total substitutions | 278 |
 
 The redaction verification passed with no remaining matches for the three configured patterns. Four empty tickets were skipped and four long tickets were flagged rather than sent for normal classification.
 
@@ -441,7 +442,7 @@ The final few-shot run recorded:
 | Flagged for invalid model output | 9 |
 | Flagged as long | 4 |
 | Skipped as empty | 4 |
-| \*\*Total\*\* | \*\*164\*\* |
+| Total | 164 |
 
 Transient failures were recovered through retry handling. Invalid outputs, empty inputs, long inputs, and budget-exhausted tickets are handled explicitly rather than silently treated as successful classifications.
 
@@ -461,7 +462,7 @@ The evaluation compares classification performance and token use on the 147 tick
 | Total response tokens | 18,292 | 31,396 |
 | Tokens per classified ticket | 124.44 | 213.58 |
 
-In this mock-model evaluation, few-shot prompting improved observed accuracy by \*\*14.29 percentage points\*\* while using 13,104 additional response tokens, or about 89.14 extra tokens per classified ticket. The result is specific to the supplied synthetic evaluation and mock model; it should not be interpreted as a guarantee of real-world production accuracy.
+In this mock-model evaluation, few-shot prompting improved observed accuracy by 14.29 percentage points while using 13,104 additional response tokens, or about 89.14 extra tokens per classified ticket. The result is specific to the supplied synthetic evaluation and mock model; it should not be interpreted as a guarantee of real-world production accuracy.
 
 
 
@@ -490,7 +491,7 @@ The final output recorded these routing totals:
 | Premium desk | 11 |
 | Security team | 34 |
 | Support queue | 102 |
-| \*\*Total\*\* | \*\*164\*\* |
+| Total | 164 |
 
 Fraud tickets are routed to the security team at high priority; Premium customers can be routed to the premium desk; and invalid, empty, long, or budget-exhausted cases are routed for human review. Routing is a rule-based decision in this project, separate from the model's predicted category.
 
@@ -516,7 +517,7 @@ The policy documents cover refunds, delivery, payment, privacy, and escalation. 
 
 
 
-\*\*Evidence:\*\* `outputs/triage\_zero\_shot.csv`, `outputs/triage\_few\_shot.csv`, `outputs/triage\_results.csv`, `outputs/triage\_prompt\_comparison.csv`, `outputs/triage\_zero\_shot\_confusion.csv`, `outputs/triage\_budget\_demo.csv`, `outputs/policy\_eval\_overlap10.csv`, `outputs/policy\_eval\_overlap0.csv`, and `outputs/policy\_eval\_summary.csv`.
+Evidence: `outputs/triage\_zero\_shot.csv`, `outputs/triage\_few\_shot.csv`, `outputs/triage\_results.csv`, `outputs/triage\_prompt\_comparison.csv`, `outputs/triage\_zero\_shot\_confusion.csv`, `outputs/triage\_budget\_demo.csv`, `outputs/policy\_eval\_overlap10.csv`, `outputs/policy\_eval\_overlap0.csv`, and `outputs/policy\_eval\_summary.csv`.
 
 
 
@@ -568,7 +569,7 @@ The workflow applies these rules:
 
 
 
-The refund ledger is a \*\*local simulation\*\*. No real payment, bank transfer, or customer account is affected.
+The refund ledger is a local simulation. No real payment, bank transfer, or customer account is affected.
 
 
 
@@ -584,6 +585,7 @@ The refund ledger is a \*\*local simulation\*\*. No real payment, bank transfer,
 | S5 | DENIED | 0.00 | 0.00 | 3 | 490 |
 | S6 | NOT\_FOUND | 0.00 | 0.00 | 2 | 174 |
 | S7 | FALLBACK\_MAX\_ITERATIONS | 0.00 | 0.00 | 6 | 3,306 |
+
 All seven scenario amounts matched their expected amounts. S3 correctly escalated a refund above INR 1,000; its INR 1,999 amount is not an automatically issued refund.
 
 
@@ -597,6 +599,7 @@ All seven scenario amounts matched their expected amounts. S3 correctly escalate
 | Time limit reached | `FALLBACK\_TIMEOUT` |
 | Maximum of six model calls reached | `FALLBACK\_MAX\_ITERATIONS` |
 | Checkpoint/resume demonstration | Resumed with final status `REFUND` |
+
 In the resume demonstration, the tools executed across the simulated interruption and continuation were `get\_order`, `search\_policy`, `calculate\_refund`, and `issue\_refund`. The resumed answer reported the simulated INR 128.25 refund. Checkpointing helps preserve progress across an interruption; it does not replace production-grade transaction guarantees or idempotency controls.
 
 
@@ -609,7 +612,7 @@ The agent separates reasoning from actions. A model response alone does not esta
 
 
 
-\*\*Evidence:\*\* `scripts/refund\_agent.py`, `outputs/agent\_scenario\_summary.csv`, `outputs/agent\_runs.jsonl`, `outputs/refund\_ledger.jsonl`, and the checkpoint files under `state/`.
+Evidence: `scripts/refund\_agent.py`, `outputs/agent\_scenario\_summary.csv`, `outputs/agent\_runs.jsonl`, `outputs/refund\_ledger.jsonl`, and the checkpoint files under `state/`.
 
 
 
@@ -621,21 +624,21 @@ The agent separates reasoning from actions. A model response alone does not esta
 
 
 
-1\. \*\*Synthetic data:\*\* the project uses generated data and does not establish how the workflow will perform on live Instamart operations.
+1\. Synthetic data: the project uses generated data and does not establish how the workflow will perform on live Instamart operations.
 
-2\. \*\*Offline mock model:\*\* classification accuracy and agent behaviour are evaluated against the supplied `mock\_llm.py`; they do not establish the performance of a hosted or production language model.
+2\. Offline mock model: classification accuracy and agent behaviour are evaluated against the supplied `mock\_llm.py`; they do not establish the performance of a hosted or production language model.
 
-3\. \*\*Lapse prediction is not causation:\*\* model feature importance and predicted risk do not prove why a customer lapses or that a retention action will work.
+3\. Lapse prediction is not causation: model feature importance and predicted risk do not prove why a customer lapses or that a retention action will work.
 
-4\. \*\*Model evaluation scope:\*\* the reported scores apply to the chosen dataset, label window, features, and evaluation split. Performance may change with new customers or different time periods.
+4\. Model evaluation scope: the reported scores apply to the chosen dataset, label window, features, and evaluation split. Performance may change with new customers or different time periods.
 
-5\. \*\*Lexical retrieval:\*\* TF-IDF can miss semantic matches and can return passages that do not contain the exact fact needed. Chunk size and overlap affect whether policy rules remain together.
+5\. Lexical retrieval: TF-IDF can miss semantic matches and can return passages that do not contain the exact fact needed. Chunk size and overlap affect whether policy rules remain together.
 
-6\. \*\*Pattern-based PII redaction:\*\* the configured regular expressions cover the tested email, phone, and order-ID formats, not every possible form of personal or confidential information.
+6\. Pattern-based PII redaction: the configured regular expressions cover the tested email, phone, and order-ID formats, not every possible form of personal or confidential information.
 
-7\. \*\*Simulated refund execution:\*\* the ledger is not connected to a payment provider. Production use would require authenticated access, durable audit logs, idempotency, transaction controls, monitoring, and human approval workflows.
+7\. Simulated refund execution: the ledger is not connected to a payment provider. Production use would require authenticated access, durable audit logs, idempotency, transaction controls, monitoring, and human approval workflows.
 
-8\. \*\*Reproducibility environment:\*\* dependency compatibility, random seeds, file paths, and generated state should be verified by running the documented sequence in a fresh environment.
+8\. Reproducibility environment: dependency compatibility, random seeds, file paths, and generated state should be verified by running the documented sequence in a fresh environment.
 
 
 
