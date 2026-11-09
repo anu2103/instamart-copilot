@@ -1,0 +1,50 @@
+{
+  "run_id": "S6_32a72809",
+  "scenario_id": "S6",
+  "messages": [
+    {
+      "role": "system",
+      "content": "AGENT: You are a refund-support agent. Use tools to look up orders, check policy, calculate the refund, and issue or escalate only when allowed. Only completed orders qualify. Delivery must exceed 45 minutes for a refund. Never issue an automatic refund above INR 1000; escalate it to a human."
+    },
+    {
+      "role": "user",
+      "content": "Refund for order ORD-999999 please."
+    },
+    {
+      "role": "assistant",
+      "content": null,
+      "tool_calls": [
+        {
+          "id": "call_1",
+          "name": "get_order",
+          "arguments": {
+            "order_id": "ORD-999999"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_1",
+      "name": "get_order",
+      "content": "{\"error\": \"order not found\"}"
+    }
+  ],
+  "tokens_used": 81,
+  "step_number": 1,
+  "llm_calls": 1,
+  "steps": [
+    {
+      "tool_name": "get_order",
+      "arguments": {
+        "order_id": "ORD-999999"
+      },
+      "observation": {
+        "error": "order not found"
+      }
+    }
+  ],
+  "executed_tools": [
+    "get_order"
+  ]
+}
