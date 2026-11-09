@@ -666,18 +666,18 @@ Evidence: `scripts/refund\_agent.py`, `outputs/agent\_scenario\_summary.csv`, `o
 
 
 
-\- \[x] `generate\_data.py` and `mock\_llm.py` are included and unchanged.
+- [x] `generate\_data.py` and `mock\_llm.py` are included and unchanged.
 
-\- \[x] `requirements.txt`, `.gitignore`, all Part A–D source files, and `sql/queries.sql` are committed.
+- [x] `requirements.txt`, `.gitignore`, all Part A–D source files, and `sql/queries.sql` are committed.
 
-\- \[x] All five policy documents under `data/policies/` are committed.
+- [x] All five policy documents under `data/policies/` are committed.
 
-\- \[x] Required output files are committed; charts and screenshots are not committed.
+- [x] Required output files are committed; charts and screenshots are not committed.
 
-\- \[x] The README contains all seven required sections and reports results in text.
+- [x] The README contains all seven required sections and reports results in text.
 
-\- \[x] Reproduction commands succeed in a fresh environment.
+- [x] Reproduction commands succeed in a fresh environment.
 
-\- \[x] All work is on the `main` branch.
+- [x] All work is on the `main` branch.
 
-\- \[x] The repository is public and the submission link resolves to `https://github.com/anu2103/instamart-copilot/tree/main`.
+- [x] The repository is public and the submission link resolves to `https://github.com/anu2103/instamart-copilot/tree/main`.
