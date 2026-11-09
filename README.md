@@ -41,6 +41,7 @@ This project builds an end-to-end workflow around those needs. It starts with sy
 | Part B — Customer intelligence | RFM features, K-means customer segments, lapse-risk modelling, and a retention-priority list |
 | Part C — Support copilot | PII redaction, ticket guardrails, zero-shot/few-shot triage comparison, retry handling, token-budget handling, and policy retrieval evaluation |
 | Part D — Controlled refund agent | Policy-aware tool use, refund calculations, escalation rules, execution limits, checkpointing, and resume testing |
+
 \### Design principles
 
 
@@ -252,6 +253,7 @@ Create a dependable analytical foundation from synthetic quick-commerce data. Th
 | Completed orders | 11,110 |
 | Cancelled orders | 1,199 |
 | Completed-order revenue | INR 2,998,668.80 |
+
 The customer dataset contains 1,200 records. The cleaning workflow handles missing or invalid age values, normalises gender values, and standardises city data. The cleaned customer age range is 18–60; gender counts are 610 female, 560 male, and 30 unknown.
 
 
@@ -311,6 +313,7 @@ The RFM snapshot date is \*\*1 October 2025\*\*. The analysis includes 1,175 cus
 | Maximum frequency | 33 orders |
 | Mean monetary value | INR 2,552.06 |
 | Maximum monetary value | INR 14,766.55 |
+
 Recency measures how recently a customer ordered, frequency measures the number of completed orders, and monetary value measures completed-order spend. Together, these features provide a compact behavioural view of customer activity.
 
 
@@ -328,6 +331,7 @@ K-means clustering was evaluated using cluster-quality metrics, with \*\*K = 4\*
 | Premium | 138 | High-value customers whose experience should be protected |
 | Frequent Loyal | 419 | Regular customers who may respond to loyalty and convenience improvements |
 | At-Risk | 182 | Customers who warrant closer retention attention |
+
 These labels are business-facing interpretations of the clusters, not guarantees about an individual customer's future behaviour.
 
 
@@ -357,6 +361,7 @@ The reported Random Forest configuration uses `max\_depth=8` and `min\_samples\_
 | Confusion matrix — false positives | 30 |
 | Confusion matrix — false negatives | 31 |
 | Confusion matrix — true positives | 58 |
+
 The confusion matrix is shown in the order `\[\[TN, FP], \[FN, TP]]`. The F1 score balances precision and recall; neither a good F1 score nor a predicted risk guarantees that a particular customer will lapse.
 
 
@@ -379,6 +384,7 @@ The reported Random Forest feature-importance ranking is:
 | Recency | 0.1152 |
 | Average delivery minutes | 0.0612 |
 | Cancellation rate | 0.0523 |
+
 Frequency and monetary value have the highest importance among the listed features. These values describe the fitted model's relative feature importance; they do not establish that a feature causes customer behaviour.
 
 
@@ -420,6 +426,7 @@ The supplied ticket dataset contains 164 tickets. The final triage run recorded 
 | Phone numbers | 91 |
 | Order IDs | 132 |
 | \*\*Total substitutions\*\* | \*\*278\*\* |
+
 The redaction verification passed with no remaining matches for the three configured patterns. Four empty tickets were skipped and four long tickets were flagged rather than sent for normal classification.
 
 
@@ -435,6 +442,7 @@ The final few-shot run recorded:
 | Flagged as long | 4 |
 | Skipped as empty | 4 |
 | \*\*Total\*\* | \*\*164\*\* |
+
 Transient failures were recovered through retry handling. Invalid outputs, empty inputs, long inputs, and budget-exhausted tickets are handled explicitly rather than silently treated as successful classifications.
 
 
@@ -452,6 +460,7 @@ The evaluation compares classification performance and token use on the 147 tick
 | Accuracy | 85.71% | 100.00% |
 | Total response tokens | 18,292 | 31,396 |
 | Tokens per classified ticket | 124.44 | 213.58 |
+
 In this mock-model evaluation, few-shot prompting improved observed accuracy by \*\*14.29 percentage points\*\* while using 13,104 additional response tokens, or about 89.14 extra tokens per classified ticket. The result is specific to the supplied synthetic evaluation and mock model; it should not be interpreted as a guarantee of real-world production accuracy.
 
 
@@ -482,6 +491,7 @@ The final output recorded these routing totals:
 | Security team | 34 |
 | Support queue | 102 |
 | \*\*Total\*\* | \*\*164\*\* |
+
 Fraud tickets are routed to the security team at high priority; Premium customers can be routed to the premium desk; and invalid, empty, long, or budget-exhausted cases are routed for human review. Routing is a rule-based decision in this project, separate from the model's predicted category.
 
 
@@ -497,6 +507,7 @@ The local policy retriever chunks policy text and ranks matching passages using 
 |---|---:|---:|---:|---:|---:|---:|
 | 10-word overlap | 15 | 12 | 12 | 12 | 2 | 2 |
 | No overlap | 13 | 12 | 12 | 10 | 2 | 2 |
+
 In this evaluation, overlap preserved key facts that could otherwise be split across chunk boundaries. The no-overlap configuration retrieved relevant material for all 12 answerable questions, but only 10 answers contained the expected fact. Both configurations returned fallback answers for the two unanswerable questions.
 
 
